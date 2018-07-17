@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="import" href="cadastro.html">
+
 
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"> -->
     <!-- usar open sans igual o site da univali? ou Roboto que é do proprio design material? -->
@@ -32,20 +34,29 @@
         <div id="menu">
             <h2>Itens</h2>
             <ul style="line-height:3.6rem">
-                <li>Cadastro</li>
-                <li>Listagem</li>
+                <li>
+                    <a onclick="cadastroCarregar()" href="#">Cadastro</a>
+                </li>
+                <li>
+                    <a onclick="listagemCarregar()" href="#">Listagem</a>
+                </li>
             </ul>
         </div>
-        <div id="cadastro">
-            <link rel="import" href="cadastro.html">
-        </div>
+        <div id="conteudo"></div>
     </div>
 </body>
 
 <script>
-	var link = document.querySelector('link[rel="import"]');
+    var link = document.querySelector('link[rel="import"]');
     var content = link.import.documentElement;
-    document.body.appendChild(content.cloneNode(true));
-  </script>
+    document.getElementById("conteudo").appendChild(content.cloneNode(true));
+    
+    function cadastroCarregar () {
+        var link = document.querySelector('link[rel="import"]');
+        var content = link.import.documentElement;
+        document.getElementById("cadastro").appendChild(content.cloneNode(true));
+
+    }
+</script>
 
 </html>

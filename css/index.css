@@ -13,6 +13,12 @@ body {
     display: flex;
 }
 
+#conteudo {
+    border: 1px solid black;
+    padding: 1.6rem;
+    flex: 70%;
+}
+
 h1,h2,h3,h4,h5,h6 {
     padding: none !important;
     margin: none !important;
@@ -20,6 +26,15 @@ h1,h2,h3,h4,h5,h6 {
     -webkit-margin-before: 0px;
 }
 
+a:link,a:visited {
+    text-decoration: none;
+    color:black;
+}
+
 ul {
     list-style-type:none;
+}
+
+table, th, td {
+    border: 1px solid black;
 }
