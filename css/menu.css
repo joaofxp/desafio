@@ -1,0 +1,7 @@
+#menu {
+    font-weight: 500;
+    border: 1px solid black;
+    padding: 1.6rem;
+    flex: 30%;
+    margin-right:.25rem;
+}
