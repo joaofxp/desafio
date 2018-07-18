@@ -1,5 +1,5 @@
+<!DOCTYPE HTML>
 <html>
-
 <head>
     <title>Desafio Front</title>
     <meta charset="UTF-8">
@@ -15,13 +15,15 @@
     <!-- Latest compiled and minified JavaScript -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
     <!-- fonte -->
     <link rel="stylesheet" href="css/fontes/roboto.css">
     <!-- styles -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/cadastro.css">
-    <link rel="import" href="cadastro.html">
 
 
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"> -->
@@ -42,20 +44,42 @@
                 </li>
             </ul>
         </div>
-        <div id="conteudo"></div>
+        <div id="conteudo">
+            <link rel="import" href="cadastro.html">
+        </div>
     </div>
 </body>
 
-<script>
-    var link = document.querySelector('link[rel="import"]');
-    var content = link.import.documentElement;
-    document.getElementById("conteudo").appendChild(content.cloneNode(true));
-    
-    function cadastroCarregar () {
-        var link = document.querySelector('link[rel="import"]');
-        var content = link.import.documentElement;
-        document.getElementById("cadastro").appendChild(content.cloneNode(true));
+<script type="text/javascript">
+    window.onload = function(){
+        $( "#conteudo" ).load('cadastro.html');
+    }
 
+    cadastroCarregar = () => {
+        $( "#conteudo" ).load('cadastro.html');
+    }
+
+    quantidadeConfigurar = (quantidade) => {
+        document.getElementById("quantidade").setAttribute("step", "0.001")
+        document.getElementById("unidadeAbreviatura").setAttribute("value", "");
+
+        switch (quantidade) {
+            case "0":
+                alert("Selecione uma unidade de medida.");
+                break;
+            case "1":
+                document.getElementById("unidadeAbreviatura").setAttribute("value", "lt");
+                break;
+            case "2":
+                document.getElementById("unidadeAbreviatura").setAttribute("value", "kg");
+                break;
+            case "3":
+                document.getElementById("quantidade").setAttribute("step", "1")
+                document.getElementById("unidadeAbreviatura").setAttribute("value", "un");
+                break;
+            default:
+                break;
+        }
     }
 </script>
 
