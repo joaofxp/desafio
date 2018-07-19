@@ -16,7 +16,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" pattern="[A-Za-z]{1,50}" value="Nome" required>
+                            <input type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" required>
                         </td>
                         <td>                        
                             <select onchange="quantidadeConfigurar(this.value)" required>
@@ -31,7 +31,10 @@
                             <input type="text" id="unidadeAbreviatura" disabled required>
                         </td>
                         <td>
-                            <input type="number" min="0.01" step="0.01" value="25.67" required>
+                            <!-- <input type="number" min="0.01" step="0.01" placeholder="25,67" required> -->
+                            <!-- <input class="money" type="text" onkeydown="validar()">     -->
+                            <input type="text" id="demo4" data-thousands="." data-decimal="," data-prefix="R$ " />
+                            <script type="text/javascript">$("#demo4").maskMoney();</script>
                         </td>
                         <td>
                             <input type="checkbox" name="" id="">

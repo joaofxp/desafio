@@ -17,6 +17,9 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/validacaoCampoMonetario.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script> -->
     
     <!-- fonte -->
     <link rel="stylesheet" href="css/fontes/roboto.css">
@@ -51,6 +54,12 @@
 </body>
 
 <script type="text/javascript">
+    validar = () => { 
+        $('.money').mask("#,##0.00", {reverse: true});
+        // $(".money").inputmask('R$ 999.999.999,99', { numericInput: true});
+        console.log("oi");
+    }
+
     window.onload = function(){
         $( "#conteudo" ).load('cadastro.html');
     }
@@ -64,9 +73,6 @@
         document.getElementById("unidadeAbreviatura").setAttribute("value", "");
 
         switch (quantidade) {
-            case "0":
-                alert("Selecione uma unidade de medida.");
-                break;
             case "1":
                 document.getElementById("unidadeAbreviatura").setAttribute("value", "lt");
                 break;
