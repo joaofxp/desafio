@@ -18,7 +18,7 @@
                         <td>
                             <input type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" required>
                         </td>
-                        <td>                        
+                        <td>
                             <select onchange="quantidadeConfigurar(this.value)" required>
                                 <option value="" selected disabled>Selecione</option>
                                 <option value="1">Litro</option>
@@ -31,25 +31,23 @@
                             <input type="text" id="unidadeAbreviatura" disabled required>
                         </td>
                         <td>
-                            <!-- <input type="number" min="0.01" step="0.01" placeholder="25,67" required> -->
-                            <!-- <input class="money" type="text" onkeydown="validar()">     -->
-                            <input type="text" id="demo4" data-thousands="." data-decimal="," data-prefix="R$ " />
-                            <script type="text/javascript">$("#demo4").maskMoney();</script>
+                            <input type="text" id="valor" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" required>
+
                         </td>
                         <td>
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox" id="perecivel" onchange="validadePedir(this.checked)">
                         </td>
                         <td>
-                            <input type="date" name="" id="" value="1979-12-31">
+                            <input type="date" id="validade" onchange="if(dataInferior(this.value,hoje)) produtoVencido()">
                         </td>
                         <td>
-                            <input type="date" name="" id="" value="1979-12-31">
+                            <input type="date" id="fabricacao" value="1979-12-31">
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
+
         <div>
             <input type="submit" value="Salvar">
             <input type="button" value="Cancelar">

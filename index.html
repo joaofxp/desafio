@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <title>Desafio Front</title>
     <meta charset="UTF-8">
@@ -19,19 +20,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/validacaoCampoMonetario.js"></script>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script> -->
-    
     <!-- fonte -->
     <link rel="stylesheet" href="css/fontes/roboto.css">
+
     <!-- styles -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/cadastro.css">
-
-
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"> -->
-    <!-- usar open sans igual o site da univali? ou Roboto que é do proprio design material? -->
-
 </head>
 
 <body>
@@ -54,18 +49,29 @@
 </body>
 
 <script type="text/javascript">
-    validar = () => { 
-        $('.money').mask("#,##0.00", {reverse: true});
-        // $(".money").inputmask('R$ 999.999.999,99', { numericInput: true});
-        console.log("oi");
+    const hoje = new Date();
+
+    window.onload = function () {
+        hoje.setHours(00,00,00,00);
+        $("#conteudo").load('cadastro.html');
     }
 
-    window.onload = function(){
-        $( "#conteudo" ).load('cadastro.html');
+    dataInferior = (dataInput,data2) =>  new Date(dataInput+"T00:00:00") < data2;
+
+    produtoVencido = () => alert("O produto encontra-se vencido.");
+
+    validadePedir = (perecivel) => {
+        if (perecivel)
+            document.getElementById("validade").setAttribute("required", "");
+        else
+            document.getElementById("validade").removeAttribute("required");
     }
+
+    mascarar = () => $("#valor").maskMoney();
 
     cadastroCarregar = () => {
-        $( "#conteudo" ).load('cadastro.html');
+        console.log(hoje);
+        $("#conteudo").load('cadastro.html');
     }
 
     quantidadeConfigurar = (quantidade) => {
