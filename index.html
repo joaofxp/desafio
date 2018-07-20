@@ -4,7 +4,7 @@
 <head>
     <title>Desafio Front</title>
     <meta charset="UTF-8">
-
+    <meta name="description" content="Desafio Front-End, construir uma aplicação web para realizar o cadastro de itens. ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Latest compiled and minified CSS -->
@@ -35,64 +35,17 @@
             <h2>Itens</h2>
             <ul style="line-height:3.6rem">
                 <li>
-                    <a onclick="cadastroCarregar()" href="#">Cadastro</a>
+                    <a onclick="cadastroCarregar()" href="cadastro.html">Cadastro</a>
                 </li>
                 <li>
-                    <a onclick="listagemCarregar()" href="#">Listagem</a>
+                    <a onclick="listagemCarregar()" href="listagem.html">Listagem</a>
                 </li>
             </ul>
         </div>
         <div id="conteudo">
-            <link rel="import" href="cadastro.html">
+            <h3>Bem vindo ao Desafio Front-End!</h3>
+            <br>
+            <h5>Selecione um item no menu</h5>
         </div>
     </div>
 </body>
-
-<script type="text/javascript">
-    const hoje = new Date();
-
-    window.onload = function () {
-        hoje.setHours(00,00,00,00);
-        $("#conteudo").load('cadastro.html');
-    }
-
-    dataInferior = (dataInput,data2) =>  new Date(dataInput+"T00:00:00") < data2;
-
-    produtoVencido = () => alert("O produto encontra-se vencido.");
-
-    validadePedir = (perecivel) => {
-        if (perecivel)
-            document.getElementById("validade").setAttribute("required", "");
-        else
-            document.getElementById("validade").removeAttribute("required");
-    }
-
-    mascarar = () => $("#valor").maskMoney();
-
-    cadastroCarregar = () => {
-        console.log(hoje);
-        $("#conteudo").load('cadastro.html');
-    }
-
-    quantidadeConfigurar = (quantidade) => {
-        document.getElementById("quantidade").setAttribute("step", "0.001")
-        document.getElementById("unidadeAbreviatura").setAttribute("value", "");
-
-        switch (quantidade) {
-            case "1":
-                document.getElementById("unidadeAbreviatura").setAttribute("value", "lt");
-                break;
-            case "2":
-                document.getElementById("unidadeAbreviatura").setAttribute("value", "kg");
-                break;
-            case "3":
-                document.getElementById("quantidade").setAttribute("step", "1")
-                document.getElementById("unidadeAbreviatura").setAttribute("value", "un");
-                break;
-            default:
-                break;
-        }
-    }
-</script>
-
-</html>

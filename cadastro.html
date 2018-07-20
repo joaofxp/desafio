@@ -1,56 +1,111 @@
-<div id="cadastro">
-    <form action="">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Unidade de Medida</th>
-                        <th>Quantidade</th>
-                        <th>Preço</th>
-                        <th>Perecível</th>
-                        <th>Validade</th>
-                        <th>Fabricação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <input type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" required>
-                        </td>
-                        <td>
-                            <select onchange="quantidadeConfigurar(this.value)" required>
-                                <option value="" selected disabled>Selecione</option>
-                                <option value="1">Litro</option>
-                                <option value="2">Quilograma</option>
-                                <option value="3">Unidade</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="number" id="quantidade" min="1" step="1" pattern="\d*" required value="0">
-                            <input type="text" id="unidadeAbreviatura" disabled required>
-                        </td>
-                        <td>
-                            <input type="text" id="valor" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" required>
+<!DOCTYPE HTML>
+<html>
 
-                        </td>
-                        <td>
-                            <input type="checkbox" id="perecivel" onchange="validadePedir(this.checked)">
-                        </td>
-                        <td>
-                            <input type="date" id="validade" onchange="if(dataInferior(this.value,hoje)) produtoVencido()">
-                        </td>
-                        <td>
-                            <input type="date" id="fabricacao" value="1979-12-31">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<head>
+    <title>Desafio Front</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Desafio Front-End, construir uma aplicação web para realizar o cadastro de itens. ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <div>
-            <input type="submit" value="Salvar">
-            <input type="button" value="Cancelar">
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/validacaoCampoMonetario.js"></script>
+
+    <!-- fonte -->
+    <link rel="stylesheet" href="css/fontes/roboto.css">
+
+    <!-- styles -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+    <script src="js/cadastroConfig.js"></script>
+</head>
+
+<body>
+    <div class="row">
+        <div id="menu">
+            <h2>Itens</h2>
+            <ul style="line-height:3.6rem">
+                <li>
+                    <a onclick="cadastroCarregar()" href="cadastro.html">Cadastro</a>
+                </li>
+                <li>
+                    <a onclick="listagemCarregar()" href="listagem.html">Listagem</a>
+                </li>
+            </ul>
         </div>
-    </form>
-</div>
+        <div id="conteudo">
+            <div id="cadastro">
+                <form action="">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Unidade de Medida</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço</th>
+                                    <th>Perecível</th>
+                                    <th>Validade</th>
+                                    <th>Fabricação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" required>
+                                    </td>
+                                    <td>
+                                        <select id="unidadeMedida" onchange="quantidadeConfigurar(this.value)" required>
+                                            <option value="" selected disabled>Selecione</option>
+                                            <option value="1">Litro</option>
+                                            <option value="2">Quilograma</option>
+                                            <option value="3">Unidade</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="quantidade" min="1" step="1" pattern="\d*" value="0">
+                                        <input type="text" id="unidadeAbreviatura" disabled required>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="preco" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" required>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="perecivel" onchange="validadeObrigatoria(this.checked)" required>
+                                    </td>
+                                    <td>
+                                        <input type="date" id="validade" onchange="limitarDataFabricação();if(dataInferior()) produtoVencido()">
+                                    </td>
+                                    <td>
+                                        <input type="date" id="fabricacao" value="1979-12-31" required>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <!-- localStorage.name = JSON.stringify({cor:"vermelho",lapis:"azul"}); -->
+                        <!-- JSON.parse(localStorage.name) -->
+                        <input type="submit" value="Salvar">
+                        <a onclick="listagemCarregar()" href="listagem.html">
+                            <input type="button" value="Cancelar">
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+</html>
