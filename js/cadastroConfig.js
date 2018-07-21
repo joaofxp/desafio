@@ -1,13 +1,47 @@
-self = this;
+const self = this;
 
 window.onload = function () {
     self.hoje = new Date();
     self.hoje.setHours(00, 00, 00, 00);
+    
+    self.lista = document.getElementsByName("lista")[0];
+    self.nomeDoItem = document.getElementsByName("nomeDoItem")[0];
+    self.unidadeMedida = document.getElementsByName("unidadeMedida")[0];
+    self.quantidade = document.getElementsByName("quantidade")[0];
+    self.unidadeAbreviatura = document.getElementsByName("unidadeAbreviatura")[0];
+    self.preco = document.getElementsByName("preco")[0];
+    self.perecivel = document.getElementsByName("perecivel")[0];
+    self.validade = document.getElementsByName("validade")[0];
+    self.fabricacao = document.getElementsByName("fabricacao")[0];
 
-    self.validade = document.getElementById("validade");
-    self.quantidade = document.getElementById("quantidade");
-    self.unidadeAbreviatura = document.getElementById("unidadeAbreviatura");
-    self.fabricacao = document.getElementById("fabricacao");
+    if (localStorage.getItem("itens") === null)
+        localStorage.itens = [];
+    else 
+        self.lista.innerHTML = JSON.parse(localStorage.itens)[0].nomeDoItem;
+
+    //agora só fazer o map        
+}
+
+serializar = () => {
+    let itens = (localStorage.itens === "") ? [] : JSON.parse(localStorage.itens);
+
+    let itemNovo = {
+        nomeDoItem : self.nomeDoItem.value,
+        unidadeMedida : self.unidadeMedida.value,
+        quantidade : self.quantidade.value,
+        unidadeAbreviatura : self.unidadeAbreviatura.value,
+        preco : self.preco.value,
+        perecivel : self.perecivel.value,
+        validade : self.validade.value,
+        fabricacao : self.fabricacao.value
+    }
+
+    console.log("ANTES"+itens);
+    itens.push(itemNovo);
+    console.log("DEPOIS"+itens);
+    
+
+    localStorage.itens = JSON.stringify(itens);
 }
 
 limitarDataFabricação = () => {
@@ -17,7 +51,7 @@ limitarDataFabricação = () => {
 
 dataInferior = () => new Date(self.validade.value + "T00:00:00") < hoje;
 
-produtoVencido = () => alert("O produto encontra-se vencido.");
+produtoVencido = () => console.log("O produto encontra-se vencido.");
 
 validadeObrigatoria = (perecivel) => {
     if (perecivel) {
@@ -27,7 +61,7 @@ validadeObrigatoria = (perecivel) => {
         self.validade.removeAttribute("required");
 }
 
-mascarar = () => $("#preco").maskMoney();
+mascarar = () => $("input[name='preco']").maskMoney();
 
 cadastroCarregar = () => {
     $("#conteudo").load('cadastro.html');
@@ -52,3 +86,4 @@ quantidadeConfigurar = (quantidade) => {
             break;
     }
 }
+

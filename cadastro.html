@@ -20,7 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/validacaoCampoMonetario.js"></script>
 
-    <!-- fonte -->
+    <!-- f
     <link rel="stylesheet" href="css/fontes/roboto.css">
 
     <!-- styles -->
@@ -32,7 +32,7 @@
 
 <body>
     <div class="row">
-        <div id="menu">
+        <div class="menu">
             <h2>Itens</h2>
             <ul style="line-height:3.6rem">
                 <li>
@@ -43,9 +43,9 @@
                 </li>
             </ul>
         </div>
-        <div id="conteudo">
-            <div id="cadastro">
-                <form action="">
+        <div class="conteudo">
+            <div name="cadastro">
+                <form name="cadastroFormulario" onsubmit="serializar()">
                     <div>
                         <table>
                             <thead>
@@ -62,10 +62,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" required>
+                                        <input name="nomeDoItem" type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" required>
                                     </td>
                                     <td>
-                                        <select id="unidadeMedida" onchange="quantidadeConfigurar(this.value)" required>
+                                        <select name="unidadeMedida" onchange="quantidadeConfigurar(this.value)" required>
                                             <option value="" selected disabled>Selecione</option>
                                             <option value="1">Litro</option>
                                             <option value="2">Quilograma</option>
@@ -73,20 +73,20 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="number" id="quantidade" min="1" step="1" pattern="\d*" value="0">
-                                        <input type="text" id="unidadeAbreviatura" disabled required>
+                                        <input name="quantidade" type="number" min="1" step="1" pattern="\d*" placeholder="0">
+                                        <input name="unidadeAbreviatura" type="text" disabled required>
                                     </td>
                                     <td>
-                                        <input type="text" id="preco" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" required>
+                                        <input name="preco" type="text" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" required>
                                     </td>
                                     <td>
-                                        <input type="checkbox" id="perecivel" onchange="validadeObrigatoria(this.checked)" required>
+                                        <input name="perecivel" type="checkbox" onchange="validadeObrigatoria(this.checked)">
                                     </td>
                                     <td>
-                                        <input type="date" id="validade" onchange="limitarDataFabricação();if(dataInferior()) produtoVencido()">
+                                        <input name="validade" type="date" onchange="limitarDataFabricação();if(dataInferior()) produtoVencido()">
                                     </td>
                                     <td>
-                                        <input type="date" id="fabricacao" value="1979-12-31" required>
+                                        <input name="fabricacao" type="date" required>
                                     </td>
                                 </tr>
                             </tbody>
@@ -104,6 +104,8 @@
             </div>
         </div>
     </div>
+    <br>
+    <div name="lista"></div>
 </body>
 
 </html>
