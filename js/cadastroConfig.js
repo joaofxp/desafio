@@ -4,7 +4,6 @@ window.onload = function () {
     self.hoje = new Date();
     self.hoje.setHours(00, 00, 00, 00);
     
-    self.lista = document.getElementsByName("lista")[0];
     self.nomeDoItem = document.getElementsByName("nomeDoItem")[0];
     self.unidadeMedida = document.getElementsByName("unidadeMedida")[0];
     self.quantidade = document.getElementsByName("quantidade")[0];
@@ -14,12 +13,8 @@ window.onload = function () {
     self.validade = document.getElementsByName("validade")[0];
     self.fabricacao = document.getElementsByName("fabricacao")[0];
 
-    if (localStorage.getItem("itens") === null)
+    if (localStorage.getItem("itens") === null || localStorage.getItem("itens") === "")
         localStorage.itens = [];
-    else 
-        self.lista.innerHTML = JSON.parse(localStorage.itens)[0].nomeDoItem;
-
-    //agora só fazer o map        
 }
 
 serializar = () => {
@@ -33,15 +28,13 @@ serializar = () => {
         preco : self.preco.value,
         perecivel : self.perecivel.value,
         validade : self.validade.value,
-        fabricacao : self.fabricacao.value
+        fabricacao : self.fabricacao.value,
+        ativo: true
     }
-
-    console.log("ANTES"+itens);
     itens.push(itemNovo);
-    console.log("DEPOIS"+itens);
-    
 
     localStorage.itens = JSON.stringify(itens);
+    alert("Item cadastrado com sucesso!");
 }
 
 limitarDataFabricação = () => {

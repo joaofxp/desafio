@@ -20,7 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/validacaoCampoMonetario.js"></script>
 
-    <!-- f
+    <!-- fonte -->
     <link rel="stylesheet" href="css/fontes/roboto.css">
 
     <!-- styles -->
@@ -36,16 +36,16 @@
             <h2>Itens</h2>
             <ul style="line-height:3.6rem">
                 <li>
-                    <a onclick="cadastroCarregar()" href="cadastro.html">Cadastro</a>
+                    <a href="cadastro.html">Cadastro</a>
                 </li>
                 <li>
-                    <a onclick="listagemCarregar()" href="listagem.html">Listagem</a>
+                    <a href="listagem.html">Listagem</a>
                 </li>
             </ul>
         </div>
         <div class="conteudo">
             <div name="cadastro">
-                <form name="cadastroFormulario" onsubmit="serializar()">
+                <form name="cadastroFormulario" onsubmit="serializar()" action="listagem.html" method="GET">
                     <div>
                         <table>
                             <thead>
@@ -104,8 +104,6 @@
             </div>
         </div>
     </div>
-    <br>
-    <div name="lista"></div>
 </body>
 
 </html>

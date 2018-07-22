@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/cadastro.css">
+    <script src="js/listagemConfig.js"></script>
 </head>
 
 <body>
@@ -43,9 +44,22 @@
             </ul>
         </div>
         <div class="conteudo">
-            <h3>Bem vindo ao Desafio Front-End!</h3>
-            <br>
-            <h5>Selecione um item no menu</h5>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Unidade de Medida</th>
+                            <th>Quantidade</th>
+                            <th>Preço</th>
+                            <th>Perecível</th>
+                            <th>Validade</th>
+                            <th>Fabricação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itensTabelaCorpo"></tbody>
+                </table>
+            </div>            
         </div>
     </div>
 </body>
