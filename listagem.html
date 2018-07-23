@@ -5,66 +5,58 @@
     <title>Desafio Front</title>
     <meta charset="UTF-8">
     <meta name="description" content="Desafio Front-End, construir uma aplicação web para realizar o cadastro de itens. ">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Latest compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-
-    <!-- Optional theme -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
-
-    <!-- Latest compiled and minified JavaScript -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/validacaoCampoMonetario.js"></script>
 
-    <!-- fonte -->
-    <link rel="stylesheet" href="css/fontes/roboto.css">
+    <!-- Última compilação e minificada do CSS do bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Última compilação e minificada do javascript do bootstrap -->
+    <script src="js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- styles -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="css/cadastro.css">
     <script src="js/listagemConfig.js"></script>
 </head>
 
 <body>
-    <div class="row">
-        <div class="menu">
-            <h2>Itens</h2>
-            <ul style="line-height:3.6rem">
-                <li>
-                    <a href="cadastro.html">Cadastro</a>
-                </li>
-                <li>
-                    <a href="listagem.html">Listagem</a>
-                </li>
-            </ul>
-        </div>
-        <div class="conteudo">
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Unidade de Medida</th>
-                            <th>Quantidade</th>
-                            <th>Preço</th>
-                            <th>Perecível</th>
-                            <th>Validade</th>
-                            <th>Fabricação</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="itensTabelaCorpo"></tbody>
-                </table>
-                <br>
-                <div>
-                    <a href="cadastro.html">
-                        <input type="button" value="Adicionar um item">
-                    </a>
+    <div class="container">
+        <div class="row">
+                <div class="col-md-2 menu">
+                    <h3>Menu</h3>
+                    <hr>
+                    <div class="btn-group-vertical"> 
+                        <a href="cadastro.html" class="btn btn-default" role="button">Cadastro</a>
+                        <a href="listagem.html" class="btn btn-default" role="button">Listagem</a>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <h3>Listagem de Itens</h3>
+                    <hr>
+                    <div id="tabelaVazia"></div>
+                    <table class="table table-striped" style="table-layout: fixed">
+                        <thead>
+                            <tr>
+                                <th width="12%">Nome</th>
+                                <th width="13%">Unid. Medida</th>
+                                <th width="11%">Quantidade</th>
+                                <th width="10%">Preço</th>
+                                <th width="8%" >Perecível</th>
+                                <th width="15%" >Validade</th>
+                                <th width="15%" >Fabricação</th>
+                                <th width="15%">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itensTabelaCorpo"></tbody>
+                    </table>
+                    <hr>
+                    <div>
+                        <a href="cadastro.html" class="btn btn-info">Adicionar um item</a>
+                    </div>
                 </div>
             </div>
         </div>

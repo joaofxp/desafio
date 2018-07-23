@@ -1,41 +1,22 @@
 html {
+    /* Definimos o tamanho padrão da fonte para 62.5, tornando 1 REM = 10px */
     font-size: 62.5%;
+    /* Ajustamos a altura da linha para 1.4, para facilitar a leitura */
     line-height: 1.4;
-
 }
 
 body {
+    /* Definimos que o tamanaho da fonte do corpo é de 16px */
     font-size: 1.6rem;
-    font-family: "Roboto";
 }
 
-.row {
-    display: flex;
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-outer-spin-button {
+    /* removemos as setas do input tipo DATE, economizando espaço */
+  -webkit-appearance: none;
 }
 
-.conteudo {
-    border: 1px solid black;
-    padding: 1.6rem;
-    flex: 70%;
-    height: 100%;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    padding: none !important;
-    margin: none !important;
-    -webkit-margin-after: 0px;
-    -webkit-margin-before: 0px;
-}
-
-a:link,a:visited {
-    text-decoration: none;
-    color:black;
-}
-
-ul {
-    list-style-type:none;
-}
-
-table, th, td {
-    border: 1px solid black;
+td,input,select {
+    /* definimos que todos TD, input e select possuam apenas 5px de padding */
+    padding:5px !important;
 }

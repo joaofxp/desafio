@@ -1,3 +1,4 @@
+//Referência para acessar variaveis internas
 const self = this;
 
 window.onload = function () {
@@ -29,7 +30,12 @@ window.onload = function () {
                     novoItem[0].children[7].children[0].setAttribute("onclick", "itemEditar('" + item.nomeDoItem + "', '" + item.fabricacao + "')");
                     novoItem[0].children[7].children[1].setAttribute("onclick", "itemRemover('" + item.nomeDoItem + "', '" + item.fabricacao + "')");
                     
-                    if (dataInferior(item.validade)) produtoVencido()
+                    if (dataInferior(item.validade)) { 
+                        novoItem[0].children[5].firstElementChild.classList.remove("form-control");
+                        novoItem[0].children[5].firstElementChild.classList.add("btn");
+                        novoItem[0].children[5].firstElementChild.classList.add("btn-danger");
+                        novoItem[0].children[5].firstElementChild.classList.add("disabled");
+                    }
 
                     self.itensTabelaCorpo.append(novoItem);
                 });
@@ -39,41 +45,38 @@ window.onload = function () {
 
     if(!registrosChecagem) {
         $("table").remove();
-        $(".conteudo").prepend("<h4>Não há itens cadastrados</h4>")
+        $("#tabelaVazia").append("<h4>Não há itens cadastrados</h4>")
     }
 }
 
 dataInferior = (validade) => new Date(validade + "T00:00:00") < self.hoje;
 
-produtoVencido = () => console.log("O produto encontra-se vencido.");
-
 itemEditar = (nomeDoItem,fabricacao) => {
-    alert("Editar " + nomeDoItem + " Fabricado em " + fabricacao);
     window.location.href = "editar.html?nomeDoItem=" +nomeDoItem+"&fabricacao="+fabricacao;
 } 
 
 itemRemover = (nomeDoItem, fabricacao) => {
-    alert("Remover " + nomeDoItem + " Fabricado em " + fabricacao);
-
-    let removido = false;
-
-    let itens = JSON.parse(localStorage.itens);
-
-    for (let item of itens) {
-        if(item.nomeDoItem == nomeDoItem && item.fabricacao == fabricacao)
-        {
-            item.ativo = false;
-            removido = true;
+    if(confirm("Realmente deseja excluir este item?")) {
+        let removido = false;
+        
+        let itens = JSON.parse(localStorage.itens);
+        
+        for (let item of itens) {
+            if(item.nomeDoItem == nomeDoItem && item.fabricacao == fabricacao)
+            {
+                item.ativo = false;
+                removido = true;
+            }
         }
-    }
-
-    if(removido == true)
-    {
-        alert("Item removido com sucesso!")
-        localStorage.itens = JSON.stringify(itens);
-    }
-    else
+        
+        if(removido == true)
+        {
+            alert("Item removido com sucesso!")
+            localStorage.itens = JSON.stringify(itens);
+        }
+        else
         alert("Erro ao remover, contate um administrador.");
-
-    window.location.reload();
+        
+        window.location.reload();
+    }
 }

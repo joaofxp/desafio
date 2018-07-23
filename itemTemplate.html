@@ -1,8 +1,8 @@
 <td>
-    <input name="nomeDoItem" type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" readonly>
+    <input class="form-control" name="nomeDoItem" type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" disabled>
 </td>
 <td>
-    <select name="unidadeMedida" onchange="quantidadeConfigurar(this.value)" readonly>
+    <select class="form-control" name="unidadeMedida" onchange="quantidadeConfigurar(this.value)" disabled>
         <option value="" selected disabled>Selecione</option>
         <option value="1">Litro</option>
         <option value="2">Quilograma</option>
@@ -10,22 +10,22 @@
     </select>
 </td>
 <td>
-    <input name="quantidade" type="number" min="1" step="1" pattern="\d*" placeholder="0" readonly>
-    <input name="unidadeAbreviatura" type="text" readonly>
+    <input style="display:inline;width:50%" class="form-control" name="quantidade" type="number" min="1" step="1" pattern="\d*" placeholder="0" disabled>
+    <input style="display:inline;width:40%" class="form-control" name="unidadeAbreviatura" type="text" disabled>
 </td>
 <td>
-    <input name="preco" type="text" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" readonly>
+    <input class="form-control" name="preco" type="text" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" disabled>
 </td>
 <td>
-    <input name="perecivel" type="checkbox" onchange="validadeObrigatoria(this.checked)" readonly>
+    <input name="perecivel" type="checkbox" onchange="validadeObrigatoria(this.checked)" disabled>
 </td>
 <td>
-    <input name="validade" type="date" onchange="limitarDataFabricação();if(dataInferior()) produtoVencido()" readonly>
+    <input style="width:100% !important" class="form-control" name="validade" type="date" onchange="limitarDataFabricação();if(dataInferior()) produtoVencido()" disabled>
 </td>
 <td>
-    <input name="fabricacao" type="date" readonly>
+    <input style="width:100% !important" class="form-control" name="fabricacao" type="date" disabled>
 </td>
-<td>    
-    <input type="button" value="Editar">
-    <input type="button" value="Remover">
+<td> 
+        <input class="btn btn-warning btn-sm" type="button" value="Editar">
+        <input class="btn btn-danger btn-sm" type="button" value="Remover">
 </td>
