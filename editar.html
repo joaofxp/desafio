@@ -33,9 +33,27 @@
     <meta name="description" content="Desafio Front-End, construir uma aplicação web para realizar o cadastro de itens. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+    <!-- checar o browser e adicionar o arquivo certo -->
+    <script>
+        var head = document.getElementsByTagName('head')[0];
+        var editarConfig = document.createElement("script");
+        var validacaoCampoMonetario = document.createElement("script");
+
+        if (navigator.userAgent.match('MSIE')) {
+            editarConfig.src ="js/IE/editarConfig.js";
+            validacaoCampoMonetario.src = "js/IE/validacaoCampoMonetario.js";
+            
+        } else {
+            editarConfig.src ="js/editarConfig.js";
+            validacaoCampoMonetario.src = "js/validacaoCampoMonetario.js";
+        }
+
+        head.appendChild(editarConfig);
+        head.appendChild(validacaoCampoMonetario);
+    </script>
+
     <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
-    <script src="js/validacaoCampoMonetario.js"></script>
 
     <!-- Última compilação e minificada do CSS do bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -46,7 +64,6 @@
     <!-- styles -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
-    <script src="js/editarConfig.js"></script>
 </head>
 
 <body>
@@ -66,7 +83,7 @@
                 <form class="form" name="editarFormulario" onsubmit="serializar()" action="listagem.html" method="GET">
                     <div class="form-group">
                         <label class="">Nome</label>
-                        <input class="form-control"  name="nomeDoItem" type="text" pattern="[A-Za-z\s.áéíóúÁÉÍÓÚ]{1,50}" placeholder="Lápis" required>
+                        <input class="form-control"  name="nomeDoItem" type="text" pattern="[A-Za-z\s.áéíóúÁÉÍÓÚ]{1,50}" placeholder="Caneta" required>
                     </div>
 
                     <div class="form-group">
@@ -117,7 +134,5 @@
         </div>
     </div>
 </body>
-
-</html>
 
 </html>

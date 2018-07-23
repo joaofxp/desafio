@@ -33,9 +33,23 @@
     <meta name="description" content="Desafio Front-End, construir uma aplicação web para realizar o cadastro de itens. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+    <!-- checar o browser e adicionar o arquivo certo -->
+    <script>
+        var head = document.getElementsByTagName('head')[0];
+        var listagemConfig = document.createElement("script");
+        
+        if (navigator.userAgent.match('MSIE')) {
+            listagemConfig.src ="js/IE/listagemConfig.js";
+            
+        } else {
+            listagemConfig.src ="js/listagemConfig.js";
+        }
+
+        head.appendChild(listagemConfig);
+    </script>
+    
     <!-- jQuery -->
     <script src="js/jquery.min.js"></script>
-    <script src="js/validacaoCampoMonetario.js"></script>
 
     <!-- Última compilação e minificada do CSS do bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -46,45 +60,46 @@
     <!-- styles -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
-    <script src="js/listagemConfig.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-                <div class="col-md-2 menu">
-                    <h3>Menu</h3>
-                    <hr>
-                    <div class="btn-group-vertical"> 
-                        <a href="cadastro.html" class="btn btn-default" role="button">Cadastro</a>
-                        <a href="listagem.html" class="btn btn-default" role="button">Listagem</a>
-                    </div>
+            <div class="col-md-2 menu">
+                <h3>Menu</h3>
+                <hr>
+                <div class="btn-group-vertical"> 
+                    <a href="cadastro.html" class="btn btn-default" role="button">Cadastro</a>
+                    <a href="listagem.html" class="btn btn-default" role="button">Listagem</a>
                 </div>
-                <div class="col-md-10">
-                    <h3>Listagem de Itens</h3>
-                    <hr>
-                    <div id="tabelaVazia"></div>
-                    <table class="table table-striped" style="table-layout: fixed">
-                        <thead>
-                            <tr>
-                                <th width="12%">Nome</th>
-                                <th width="13%">Unid. Medida</th>
-                                <th width="11%">Quantidade</th>
-                                <th width="10%">Preço</th>
-                                <th width="8%" >Perecível</th>
-                                <th width="15%" >Validade</th>
-                                <th width="15%" >Fabricação</th>
-                                <th width="15%">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="itensTabelaCorpo"></tbody>
-                    </table>
-                    <hr>
-                    <div>
-                        <a href="cadastro.html" class="btn btn-info">Adicionar um item</a>
-                    </div>
+            </div>
+            <div class="col-md-10">
+                <h3>Listagem de Itens</h3>
+                <hr>
+                <div id="tabelaVazia"></div>
+                <table class="table table-striped" style="table-layout: fixed">
+                    <thead>
+                        <tr>
+                            <th width="12%">Nome</th>
+                            <th width="13%">Unid. Medida</th>
+                            <th width="11%">Quantidade</th>
+                            <th width="10%">Preço</th>
+                            <th width="8%" >Perecível</th>
+                            <th width="15%" >Validade</th>
+                            <th width="15%" >Fabricação</th>
+                            <th width="15%">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itensTabelaCorpo"></tbody>
+                </table>
+                <hr>
+                <div>
+                    <a href="cadastro.html" class="btn btn-info">Adicionar um item</a>
                 </div>
             </div>
         </div>
     </div>
+    
 </body>
+
+</html>
