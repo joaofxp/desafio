@@ -7,8 +7,35 @@
  *  Under MIT License
  */
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*    @author João Francisco - https://github.com/joaofxp                  *
+*    @updated 23/07/2018                                                  *
+*    Pacote: Desafio Front-End                                            *
+*                                                                         *
+*    Copyright (C) 2018 UNIVALI - Universidade do Vale do Itajaí          *
+*                  https://univali.br                                     *
+*                  0800 723 1300                                          *
+*                                                                         *
+*    Este  programa  é  software livre, você pode redistribuí-lo e/ou     *
+*    modificá-lo sob os termos da Licença Pública Geral GNU, conforme     *
+*    publicada pela Free  Software  Foundation,  tanto  a versão 2 da     *
+*    Licença   como  (a  seu  critério)  qualquer  versão  mais  nova.    *
+*                                                                         *
+*    Este programa  é distribuído na expectativa de ser útil, mas SEM     *
+*    QUALQUER GARANTIA. Sem mesmo a garantia implícita de COMERCIALI-     *
+*    ZAÇÃO  ou  de ADEQUAÇÃO A QUALQUER PROPÓSITO EM PARTICULAR. Con-     *
+*    sulte  a  Licença  Pública  Geral  GNU para obter mais detalhes.     *
+*                                                                         *
+*    Você  deve  ter  recebido uma cópia da Licença Pública Geral GNU     *
+*    junto  com  este  programa. Se não, escreva para a Free Software     *
+*    Foundation,  Inc.,  59  Temple  Place,  Suite  330,  Boston,  MA     *
+*    02111-1307, USA.                                                     *
+*                                                                         *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
+
 (function ($) {
     "use strict";
+    //Verifica o browser
     if (!$.browser) {
         $.browser = {};
         $.browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
@@ -18,7 +45,8 @@
         $.browser.device = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
     }
 
-    var defaultOptions = {
+    //Define as configurações iniciais
+    let defaultOptions = {
                 prefix: "",
                 suffix: "",
                 affixesStay: true,
@@ -31,7 +59,9 @@
                 allowEmpty: false,
                 bringCaretAtEndOnFocus: true
             },
+        //Define os métodos
 		methods = {
+        //Destruir
         destroy: function () {
             $(this).unbind(".maskMoney");
 
@@ -40,14 +70,14 @@
             }
             return this;
         },
-
+        //Aplicar máscara
         applyMask: function (value) {
             var $input = $(this);
             // data-* api
             var settings = $input.data("settings");
             return maskValue(value, settings);
         },
-
+        //Mascarar
         mask: function (value) {
             return this.each(function () {
                 var $this = $(this);
@@ -57,7 +87,7 @@
                 return $this.trigger("mask");
             });
         },
-
+        //Desmascarar
         unmasked: function () {
             return this.map(function () {
                 var value = ($(this).val() || "0"),
@@ -78,7 +108,7 @@
                 return parseFloat(value);
             });
         },
-
+        //Desmascarar com opções
 		unmaskedWithOptions: function () {
             return this.map(function () {
                 var value = ($(this).val() || "0"),
@@ -90,7 +120,7 @@
         },
 
         init: function (parameters) {
-			// the default options should not be shared with others
+            // a opção padrão é de não compartilhar com os uotros
             parameters = $.extend($.extend({}, defaultOptions), parameters);
 
             return this.each(function () {
@@ -101,9 +131,8 @@
                 settings = $.extend({}, parameters);
                 settings = $.extend(settings, $input.data());
 
-                // Store settings for use with the applyMask method.
+                // Guarda as configurações para usar com a função applyMask
                 $input.data("settings", settings);
-
 
                 function getInputSelection() {
                     var el = $input.get(0),
@@ -125,13 +154,12 @@
                             len = el.value.length;
                             normalizedValue = el.value.replace(/\r\n/g, "\n");
 
-                            // Create a working TextRange that lives only in the input
+                            //Cria um TextRange
                             textInputRange = el.createTextRange();
                             textInputRange.moveToBookmark(range.getBookmark());
 
-                            // Check if the start and end of the selection are at the very end
-                            // of the input, since moveStart/moveEnd doesn't return what we want
-                            // in those cases
+                            //Verifica se o início e o final da seleção estão no fim do input
+                            //Pois o moveStart/moveEnd não retorna o que é necessário neste caso
                             endRange = el.createTextRange();
                             endRange.collapse(false);
 
@@ -168,11 +196,11 @@
                 }
 
                 function setCursorPosition(pos) {
-                    // Do not set the position if
-                    // the we're formatting on blur.
-                    // This is because we do not want
-                    // to refocus on the control after
-                    // the blur.
+                    // Não configurar a posição se
+                    // Estiver formatando no blur
+                    // Isso acontece porque não queremos
+                    // refocar no controle após o blur
+
                     if (!!settings.formatOnBlur) {
                         return;
                     }
@@ -196,10 +224,10 @@
                         newLen;
                     $input.val(maskValue($input.val(), settings));
                     newLen = $input.val().length;
-                    // If the we're using the reverse option,
-                    // do not put the cursor at the end of
-                    // the input. The reverse option allows
-                    // the user to input text from left to right.
+                    // Se estivermos usando a opção invertida
+                    // não colocar o cursor no final do input
+                    // A opção inversa permite 
+                    // o usuário para entrada de texto da esquerda para a direita
                     if (!settings.reverse) {
                         startPos = startPos - (originalLen - newLen);
                     }
@@ -218,13 +246,14 @@
 							value += settings.decimal + new Array(settings.precision + 1).join(0);
 						}
 						else {
-							// If the following decimal part dosen't have enough length against the precision, it needs to be filled with zeros.
+                            //Se o decimal seguinet não tiver comprimento suficiente contra a precisão, ele precisa ser preenchido com zeros
 							var integerPart = value.slice(0, decimalPointIndex),
 								decimalPart = value.slice(decimalPointIndex + 1);
 							value = integerPart + settings.decimal + decimalPart +
 									new Array((settings.precision + 1) - decimalPart.length).join(0);
 						}
                     } else if (decimalPointIndex > 0) {
+                        //Se  a precisão for 0, descartamos a parte decimal
                         // if the precision is 0, discard the decimal part
                         value = value.slice(0, decimalPointIndex);
                     }
@@ -245,9 +274,11 @@
                 }
 
                 function preventDefault(e) {
-                    if (e.preventDefault) { //standard browsers
+                    //navegadores padrões
+                    if (e.preventDefault) {
                         e.preventDefault();
-                    } else { // old internet explorer
+                    // o velho internet explorer
+                    } else {
                         e.returnValue = false;
                     }
                 }
@@ -262,13 +293,13 @@
                     e = e || window.event;
                     var key = e.which || e.charCode || e.keyCode,
                         decimalKeyCode = settings.decimal.charCodeAt(0);
-                    //added to handle an IE "special" event
+                    //adicionado para lidar com um evento especial do IE
                     if (key === undefined) {
                         return false;
                     }
 
-                    // any key except the numbers 0-9. if we're using settings.reverse,
-                    // allow the user to input the decimal key
+                    //Qualquer tecla exceto os numeros 0-9. Se estivermos usando settings.reverse
+                    // Autoriza o usuário a colocar valores decimais
                     if ((key < 48 || key > 57) && (key !== decimalKeyCode || !settings.reverse)) {
                         return handleAllKeysExceptNumericalDigits(key, e);
                     } else if (!canInputMoreNumbers()) {
@@ -287,8 +318,8 @@
                 }
 
                 function shouldPreventDecimalKey() {
-                    // If all text is selected, we can accept the decimal
-                    // key because it will replace everything.
+                    //Se todo o texto está selecionado, aceitamos decimal
+                    // tecla porque vai substituir tudo
                     if (isAllTextSelected()) {
                         return false;
                     }
@@ -299,8 +330,7 @@
                 function isAllTextSelected() {
                     var length = $input.val().length;
                     var selection = getInputSelection();
-                    // This should if all text is selected or if the
-                    // input is empty.
+                    //Isso deve acontecer se todo o texto estiver selecionado ou o input está vazio
                     return selection.start === 0 && selection.end === length;
                 }
 
@@ -328,22 +358,24 @@
                 }
 
                 function handleAllKeysExceptNumericalDigits(key, e) {
-                    // -(minus) key
+                    // -(menos) tecla
                     if (key === 45) {
                         $input.val(changeSign());
                         return false;
-                        // +(plus) key
+                        // +(mais) tecla
                     } else if (key === 43) {
                         $input.val($input.val().replace("-", ""));
                         return false;
-                        // enter key or tab key
+                        // enter tecla ou tecla tab
                     } else if (key === 13 || key === 9) {
                         return true;
                     } else if ($.browser.mozilla && (key === 37 || key === 39) && e.charCode === 0) {
-                        // needed for left arrow key or right arrow key with firefox
-                        // the charCode part is to avoid allowing "%"(e.charCode 0, e.keyCode 37)
+                        // necessário para a tecla "seta esquerda" ou "seta direita" no firefox
+                        // O charCode part é para evitar a permissão de "%" (e.charCode 0, e.keyCode 37)
                         return true;
-                    } else { // any other key with keycode less than 48 and greater than 57
+                        
+                    } else { 
+                        // Qualquer outra tecla com um código chave menor que 48 ou maior que 57
                         preventDefault(e);
                         return true;
                     }
@@ -357,7 +389,7 @@
                         endPos,
                         value,
                         lastNumber;
-                    //needed to handle an IE "special" event
+                    // adicionado para lidar com um evento especial do IE
                     if (key === undefined) {
                         return false;
                     }
@@ -366,24 +398,25 @@
                     startPos = selection.start;
                     endPos = selection.end;
 
-                    if (key === 8 || key === 46 || key === 63272) { // backspace or delete key (with special case for safari)
+                    //Backspace ou tecla de deletar (com caso especial para o safari)
+                    if (key === 8 || key === 46 || key === 63272) {
                         preventDefault(e);
 
                         value = $input.val();
 
-                        // not a selection
+                        // Não é uma seleção
                         if (startPos === endPos) {
                             // backspace
                             if (key === 8) {
                                 if (settings.suffix === "") {
                                     startPos -= 1;
                                 } else {
-                                    // needed to find the position of the last number to be erased
+                                    // Necessário para encontrar a posição do último número a ser apagado
                                     lastNumber = value.split("").reverse().join("").search(/\d/);
                                     startPos = value.length - lastNumber - 1;
                                     endPos = startPos + 1;
                                 }
-                                //delete
+                                //Deletar
                             } else {
                                 endPos += 1;
                             }
@@ -393,9 +426,9 @@
 
                         maskAndPosition(startPos);
                         return false;
-                    } else if (key === 9) { // tab key
+                    } else if (key === 9) { // tecla tab
                         return true;
-                    } else { // any other key
+                    } else { // qualquer outra tecla
                         return true;
                     }
                 }
@@ -410,7 +443,7 @@
                         input.select();
                     } else if (input.createTextRange && settings.bringCaretAtEndOnFocus) {
                         textRange = input.createTextRange();
-                        textRange.collapse(false); // set the cursor at the end of the input
+                        textRange.collapse(false); // coloca o cursos no fim do input
                         textRange.select();
                     }
                 }
@@ -460,9 +493,8 @@
                     var input = $input.get(0),
                         length;
                     if (!!settings.selectAllOnFocus) {
-                        // selectAllOnFocus will be handled by
-                        // the focus event. The focus event is
-                        // also fired when the input is clicked.
+                        // selectAllOnFocus será lidado pelo evento "foco"
+                        // O evento foco também é chamado ao clicar no input
                         return;
                     } else if (input.setSelectionRange && settings.bringCaretAtEndOnFocus) {
                         length = $input.val().length;
@@ -577,10 +609,10 @@
     }
 
     function buildIntegerPart(integerPart, negative, settings) {
-        // remove initial zeros
+        // removemos 0 iniciais
         integerPart = integerPart.replace(/^0*/g, "");
 
-        // put settings.thousands every 3 chars
+        // colocamos settings.thousands a cada 3 chars
         integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, settings.thousands);
         if (integerPart === "") {
             integerPart = "0";

@@ -1,3 +1,29 @@
+<!--* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *    @author João Francisco - https://github.com/joaofxp                  *
+ *    @updated 23/07/2018                                                  *
+ *    Pacote: Desafio Front-End                                            *
+ *                                                                         *
+ *    Copyright (C) 2018 UNIVALI - Universidade do Vale do Itajaí          *
+ *                  https://univali.br                                     *
+ *                  0800 723 1300                                          *
+ *                                                                         *
+ *    Este  programa  é  software livre, você pode redistribuí-lo e/ou     *
+ *    modificá-lo sob os termos da Licença Pública Geral GNU, conforme     *
+ *    publicada pela Free  Software  Foundation,  tanto  a versão 2 da     *
+ *    Licença   como  (a  seu  critério)  qualquer  versão  mais  nova.    *
+ *                                                                         *
+ *    Este programa  é distribuído na expectativa de ser útil, mas SEM     *
+ *    QUALQUER GARANTIA. Sem mesmo a garantia implícita de COMERCIALI-     *
+ *    ZAÇÃO  ou  de ADEQUAÇÃO A QUALQUER PROPÓSITO EM PARTICULAR. Con-     *
+ *    sulte  a  Licença  Pública  Geral  GNU para obter mais detalhes.     *
+ *                                                                         *
+ *    Você  deve  ter  recebido uma cópia da Licença Pública Geral GNU     *
+ *    junto  com  este  programa. Se não, escreva para a Free Software     *
+ *    Foundation,  Inc.,  59  Temple  Place,  Suite  330,  Boston,  MA     *
+ *    02111-1307, USA.                                                     *
+ *                                                                         *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+
 <td>
     <input class="form-control" name="nomeDoItem" type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" disabled>
 </td>
@@ -20,7 +46,7 @@
     <input name="perecivel" type="checkbox" onchange="validadeObrigatoria(this.checked)" disabled>
 </td>
 <td>
-    <input style="width:100% !important" class="form-control" name="validade" type="date" onchange="limitarDataFabricação();if(dataInferior()) produtoVencido()" disabled>
+    <input style="width:100% !important" class="form-control" name="validade" type="date" onchange="limitarDataFabricacao();if(dataInferior()) produtoVencido()" disabled>
 </td>
 <td>
     <input style="width:100% !important" class="form-control" name="fabricacao" type="date" disabled>

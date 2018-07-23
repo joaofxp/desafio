@@ -1,3 +1,29 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*    @author João Francisco - https://github.com/joaofxp                  *
+*    @updated 23/07/2018                                                  *
+*    Pacote: Desafio Front-End                                            *
+*                                                                         *
+*    Copyright (C) 2018 UNIVALI - Universidade do Vale do Itajaí          *
+*                  https://univali.br                                     *
+*                  0800 723 1300                                          *
+*                                                                         *
+*    Este  programa  é  software livre, você pode redistribuí-lo e/ou     *
+*    modificá-lo sob os termos da Licença Pública Geral GNU, conforme     *
+*    publicada pela Free  Software  Foundation,  tanto  a versão 2 da     *
+*    Licença   como  (a  seu  critério)  qualquer  versão  mais  nova.    *
+*                                                                         *
+*    Este programa  é distribuído na expectativa de ser útil, mas SEM     *
+*    QUALQUER GARANTIA. Sem mesmo a garantia implícita de COMERCIALI-     *
+*    ZAÇÃO  ou  de ADEQUAÇÃO A QUALQUER PROPÓSITO EM PARTICULAR. Con-     *
+*    sulte  a  Licença  Pública  Geral  GNU para obter mais detalhes.     *
+*                                                                         *
+*    Você  deve  ter  recebido uma cópia da Licença Pública Geral GNU     *
+*    junto  com  este  programa. Se não, escreva para a Free Software     *
+*    Foundation,  Inc.,  59  Temple  Place,  Suite  330,  Boston,  MA     *
+*    02111-1307, USA.                                                     *
+*                                                                         *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
+
 //Referência para acessar variaveis internas
 const self = this;
 //Referência para os parâmetros que estão na URL
@@ -78,7 +104,7 @@ serializar = () => {
 }
 
 //Limita a data de fabricação caso seja um produto perecível
-limitarDataFabricação = () => {
+limitarDataFabricacao = () => {
     if (self.validade.hasAttribute("required"))
         self.fabricacao.setAttribute("max", self.validade.value);
 }
@@ -93,7 +119,7 @@ produtoVencido = () => console.log("O produto encontra-se vencido.");
 validadeObrigatoria = (perecivel) => {
     if (perecivel) {
         self.validade.setAttribute("required", "");
-        limitarDataFabricação(self.validade.value);
+        limitarDataFabricacao(self.validade.value);
     } else
         self.validade.removeAttribute("required");
 }
@@ -126,40 +152,36 @@ quantidadeConfigurar = (quantidade) => {
 
 //Função responsável por pegar os parametros da URL
 function parametrosPegar(url) {
-    // get query string from url (optional) or window
+    // Pegamos os parametros da url
     let queryString = url ? url.split('?')[1] : window.location.search.slice(1);
 
-    // we'll store the parameters here
+    // guardamos as informações no obj
     let obj = {};
 
-    // if query string exists
+    // Se houver parametros
     if (queryString) {
 
-        // stuff after # is not part of query string, so get rid of it
+        // Removemos tudo o que há após o #, pois não é parte da consulta
         queryString = queryString.split('#')[0];
 
-        // split our query string into its component parts
+        // Separamos cada parametro
         let arr = queryString.split('&');
 
         for (let i = 0; i < arr.length; i++) {
-            // separate the keys and the values
+            // separamos chaves e valores
             let a = arr[i].split('=');
 
-            // in case params look like: list[]=thing1&list[]=thing2
+            // caso os parametros pareçam com: list[]=coisa1&list[]=coisa2
             let paramNum = undefined;
             let paramName = a[0].replace(/\[\d*\]/, function (v) {
                 paramNum = v.slice(1, -1);
                 return '';
             });
 
-            // set parameter value (use 'true' if empty)
+            // definimos o valor caso esteja vazio para true (use 'true' if empty)
             let paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
 
-            // (optional) keep case consistent
-            // paramName = paramName.toLowerCase();
-            // paramValue = paramValue.toLowerCase();
-
-            // if parameter name already exists
+            // Se o nome do parametro já existir
             if (obj[paramName]) {
                 // convert value to array (if still string)
                 if (typeof obj[paramName] === 'string') {
@@ -176,7 +198,7 @@ function parametrosPegar(url) {
                     obj[paramName][paramNum] = paramValue;
                 }
             }
-            // if param name doesn't exist yet, set it
+            // Se o nome do parâmetro não existir, defina-o
             else {
                 obj[paramName] = paramValue;
             }
