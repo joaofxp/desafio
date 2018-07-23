@@ -1,8 +1,8 @@
 <td>
-    <input name="nomeDoItem" type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" required>
+    <input name="nomeDoItem" type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" readonly>
 </td>
 <td>
-    <select name="unidadeMedida" onchange="quantidadeConfigurar(this.value)" required>
+    <select name="unidadeMedida" onchange="quantidadeConfigurar(this.value)" readonly>
         <option value="" selected disabled>Selecione</option>
         <option value="1">Litro</option>
         <option value="2">Quilograma</option>
@@ -10,18 +10,22 @@
     </select>
 </td>
 <td>
-    <input name="quantidade" type="number" min="1" step="1" pattern="\d*" placeholder="0">
-    <input name="unidadeAbreviatura" type="text" disabled required>
+    <input name="quantidade" type="number" min="1" step="1" pattern="\d*" placeholder="0" readonly>
+    <input name="unidadeAbreviatura" type="text" readonly>
 </td>
 <td>
-    <input name="preco" type="text" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" required>
+    <input name="preco" type="text" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" readonly>
 </td>
 <td>
-    <input name="perecivel" type="checkbox" onchange="validadeObrigatoria(this.checked)">
+    <input name="perecivel" type="checkbox" onchange="validadeObrigatoria(this.checked)" readonly>
 </td>
 <td>
-    <input name="validade" type="date" onchange="limitarDataFabricação();if(dataInferior()) produtoVencido()">
+    <input name="validade" type="date" onchange="limitarDataFabricação();if(dataInferior()) produtoVencido()" readonly>
 </td>
 <td>
-    <input name="fabricacao" type="date" required>
+    <input name="fabricacao" type="date" readonly>
+</td>
+<td>    
+    <input type="button" value="Editar">
+    <input type="button" value="Remover">
 </td>

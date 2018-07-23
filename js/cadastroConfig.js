@@ -26,7 +26,7 @@ serializar = () => {
         quantidade : self.quantidade.value,
         unidadeAbreviatura : self.unidadeAbreviatura.value,
         preco : self.preco.value,
-        perecivel : self.perecivel.value,
+        perecivel : self.perecivel.checked,
         validade : self.validade.value,
         fabricacao : self.fabricacao.value,
         ativo: true
@@ -42,7 +42,7 @@ limitarDataFabricação = () => {
         self.fabricacao.setAttribute("max", self.validade.value);
 }
 
-dataInferior = () => new Date(self.validade.value + "T00:00:00") < hoje;
+dataInferior = () => new Date(self.validade.value + "T00:00:00") < self.hoje;
 
 produtoVencido = () => console.log("O produto encontra-se vencido.");
 
@@ -56,24 +56,20 @@ validadeObrigatoria = (perecivel) => {
 
 mascarar = () => $("input[name='preco']").maskMoney();
 
-cadastroCarregar = () => {
-    $("#conteudo").load('cadastro.html');
-}
-
 quantidadeConfigurar = (quantidade) => {
     self.quantidade.setAttribute("step", "0.001")
     self.unidadeAbreviatura.setAttribute("value", "");
 
     switch (quantidade) {
         case "1":
-            self.unidadeAbreviatura.setAttribute("value", "lt");
+            self.unidadeAbreviatura.value = "lt";
             break;
         case "2":
-            self.unidadeAbreviatura.setAttribute("value", "kg");
+            self.unidadeAbreviatura.value = "kg";
             break;
         case "3":
+            self.unidadeAbreviatura.value = "un";
             self.quantidade.setAttribute("step", "1")
-            self.unidadeAbreviatura.setAttribute("value", "un");
             break;
         default:
             break;
