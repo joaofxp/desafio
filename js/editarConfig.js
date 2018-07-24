@@ -64,7 +64,7 @@ limitarDataFabricacao = () => {
 }
 
 //comparar se uma data é inferior a outra
-dataInferior = () => (self.validade.value.substring(0, 4) > 1753) ? new Date(self.validade.value + "T00:00:00") < self.hoje : false;
+dataInferior = () => inputDataFormatada(self.validade.value) < self.hoje;
 
 //alertar o usuario sobre a validade do produto
 produtoVencido = () => alert("O produto encontra-se vencido.");
@@ -73,9 +73,12 @@ produtoVencido = () => alert("O produto encontra-se vencido.");
 validadeObrigatoria = (perecivel) => {
     if (perecivel) {
         self.validade.setAttribute("required", "");
-        limitarDataFabricacao(self.validade.value);
-    } else
+        limitarDataFabricacao();
+    } else {
+        $('input[name=fabricacao]').data("DateTimePicker").destroy();
+        datePickerCriar('input[name=fabricacao]', 'DD/MM/YYYY', '01/01/1753', self.dataMax);
         self.validade.removeAttribute("required");
+    }
 }
 
 //mascaramos o input de dinheiro
@@ -163,7 +166,7 @@ function parametrosPegar(url) {
 }
 
 //Função que formata uma data brasileira, para US
-inputDataFormatada = (data) => new Date(data.split(/\//).reverse().join('/'));
+inputDataFormatada = (data) => data.split(/\//).reverse().join('-')+"T00:00:00";
 
 //função que cria um datePicker
 datePickerCriar = (elementoNome, formato, dataMin, dataMax) => {
@@ -205,7 +208,6 @@ self.fabricacao = document.getElementsByName("fabricacao")[0];
 
 datePickerCriar('input[name=validade]', 'DD/MM/YYYY', self.dataMin, self.dataMax);
 datePickerCriar('input[name=fabricacao]', 'DD/MM/YYYY', self.dataMin, self.dataMax);
-// limitarDataFabricacao();
 
 //Caso a lista de itens não esteja vazia, carregamos as informações do item
 if (localStorage.itens != "") {
@@ -218,10 +220,14 @@ if (localStorage.itens != "") {
             self.unidadeAbreviatura.value = item.unidadeAbreviatura;
             self.preco.value = item.preco;
             self.perecivel.checked = item.perecivel;
-            console.log(item.validade);
-            //fazer com que retorne no formato certo
-            self.validade.value = item.validade;
-            self.fabricacao.value = item.fabricacao;
+
+            // Configuramos o limite das datas se for um produto perecivel
+            $('input[name=validade]').data("DateTimePicker").date(item.validade);
+            $('input[name=fabricacao]').data("DateTimePicker").date(item.fabricacao);
+
+            if(item.perecivel){
+                validadeObrigatoria(item.perecivel);
+            }
         }
     }
 }

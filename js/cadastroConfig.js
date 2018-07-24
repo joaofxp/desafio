@@ -84,7 +84,7 @@ produtoVencido = () => alert("O produto encontra-se vencido.");
 validadeObrigatoria = (perecivel) => {
     if (perecivel) {
         self.validade.setAttribute("required", "");
-        limitarDataFabricacao(self.validade.value);
+        limitarDataFabricacao();
     } else {
         $('input[name=fabricacao]').data("DateTimePicker").destroy();
         datePickerCriar('input[name=fabricacao]', 'DD/MM/YYYY', '01/01/1753', self.dataMax);

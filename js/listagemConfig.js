@@ -62,6 +62,9 @@ itemRemover = (nomeDoItem, fabricacao) => {
     }
 }
 
+inputDataUS = (data) => data.split(/\//).reverse().join('-');
+// inputDataFormatada = (data) => new Date(data.split(/\//).reverse().join('/')+ "T00:00:00");
+
 itemAdicionar = (item) =>{
     let novoItem = $('<tr></tr>').load("itemTemplate.html", function () {
         novoItem[0].children[0].firstElementChild.value = item.nomeDoItem;
@@ -70,8 +73,8 @@ itemAdicionar = (item) =>{
         novoItem[0].children[2].children[1].value = item.unidadeAbreviatura;
         novoItem[0].children[3].firstElementChild.value = item.preco;
         novoItem[0].children[4].firstElementChild.checked = item.perecivel;
-        novoItem[0].children[5].firstElementChild.value = item.validade;
-        novoItem[0].children[6].firstElementChild.value = item.fabricacao;
+        novoItem[0].children[5].firstElementChild.value = inputDataUS(item.validade);
+        novoItem[0].children[6].firstElementChild.value = inputDataUS(item.fabricacao);
         // Adicionamos aos botões os parâmetros para editar e remover do item
         novoItem[0].children[7].children[0].setAttribute("onclick", "itemEditar('" + item.nomeDoItem + "', '" + item.fabricacao + "')");
         novoItem[0].children[7].children[1].setAttribute("onclick", "itemRemover('" + item.nomeDoItem + "', '" + item.fabricacao + "')");
@@ -81,13 +84,14 @@ itemAdicionar = (item) =>{
             novoItem[0].children[5].firstElementChild.classList.remove("form-control");
             novoItem[0].children[5].firstElementChild.classList.add("btn");
             novoItem[0].children[5].firstElementChild.classList.add("btn-danger");
-            novoItem[0].children[5].firstElementChild.classList.add("disabled");
+            novoItem[0].children[5].firstElementChild.classList.add("readonly");
         }
 
         // Adicionamos o item ao tbody da tabela
         self.itensTabelaCorpo.append(novoItem);
     });
 }
+
 
 //Referência para o dia de hoje
 self.hoje = new Date();

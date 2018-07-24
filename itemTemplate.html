@@ -25,10 +25,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 
 <td>
-    <input class="form-control" name="nomeDoItem" type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" disabled>
+    <input class="btn btn-default btn-sm" name="nomeDoItem" type="text" pattern="[A-Za-z]{1,50}" placeholder="Nome do item" readonly>
 </td>
-<td>
-    <select class="form-control" name="unidadeMedida" onchange="quantidadeConfigurar(this.value)" disabled>
+<td readonly>
+    <select class="btn btn-default btn-sm" name="unidadeMedida" disabled>
         <option value="" selected disabled>Selecione</option>
         <option value="1">Litro</option>
         <option value="2">Quilograma</option>
@@ -36,22 +36,24 @@
     </select>
 </td>
 <td>
-    <input style="display:inline;width:50%" class="form-control" name="quantidade" type="number" min="1" step="1" pattern="\d*" placeholder="0" disabled>
-    <input style="display:inline;width:40%" class="form-control" name="unidadeAbreviatura" type="text" disabled>
+    <input style="display:inline;width:50%" class="btn btn-default btn-sm" name="quantidade" type="number" min="1" step="1" pattern="\d*" placeholder="0" readonly>
+    <input style="display:inline;width:40%" class="btn btn-default btn-sm" name="unidadeAbreviatura" type="text" readonly>
 </td>
 <td>
-    <input class="form-control" name="preco" type="text" data-thousands="." data-decimal="," data-prefix="R$ " onkeydown="mascarar()" disabled>
+    <input class="btn btn-default btn-sm" name="preco" type="text" readonly>
 </td>
 <td>
-    <input name="perecivel" type="checkbox" onchange="validadeObrigatoria(this.checked)" disabled>
+    <input name="perecivel" type="checkbox" onclick="return false">
 </td>
 <td>
-    <input style="width:100% !important" class="form-control" name="validade" type="date" onchange="limitarDataFabricacao();if(dataInferior()) produtoVencido()" disabled>
+    <input class="btn btn-default btn-sm" name="validade" type="date" readonly>
 </td>
 <td>
-    <input style="width:100% !important" class="form-control" name="fabricacao" type="date" disabled>
+    <input class="btn btn-default btn-sm" name="fabricacao" type="date" readonly>
 </td>
 <td> 
-        <input class="btn btn-warning btn-sm" type="button" value="Editar">
-        <input class="btn btn-danger btn-sm" type="button" value="Remover">
+    <input class="btn btn-warning btn-sm" type="button" value="Editar">
+    <input class="btn btn-danger btn-sm" type="button" value="Remover">
 </td>
+
+formatDate("2014-05-12")

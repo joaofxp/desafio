@@ -70,7 +70,8 @@ itemAdicionar = function itemAdicionar(item) {
         novoItem[0].children[4].firstElementChild.checked = item.perecivel;
         novoItem[0].children[5].firstElementChild.value = item.validade;
         novoItem[0].children[6].firstElementChild.value = item.fabricacao;
-        // Adicionamos aos botões os parâmetros para editar e remover do item
+        
+        // Adicionar aos botões os parâmetros para editar e remover do item
         novoItem[0].children[7].children[0].setAttribute("onclick", "itemEditar('" + item.nomeDoItem + "', '" + item.fabricacao + "')");
         novoItem[0].children[7].children[1].setAttribute("onclick", "itemRemover('" + item.nomeDoItem + "', '" + item.fabricacao + "')");
 
@@ -78,8 +79,9 @@ itemAdicionar = function itemAdicionar(item) {
         if (dataInferior(item.validade)) {
             novoItem[0].children[5].firstElementChild.classList.remove("form-control");
             novoItem[0].children[5].firstElementChild.classList.add("btn");
+            novoItem[0].children[5].firstElementChild.classList.add("btn-md");
             novoItem[0].children[5].firstElementChild.classList.add("btn-danger");
-            novoItem[0].children[5].firstElementChild.classList.add("disabled");
+            novoItem[0].children[5].firstElementChild.classList.add("readonly");
         }
 
         // Adicionamos o item ao tbody da tabela

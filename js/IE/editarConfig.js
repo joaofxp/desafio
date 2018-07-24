@@ -24,80 +24,10 @@
 *                                                                         *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 
-
 //Referência para acessar variaveis internas
 var self = this;
 //Referência para os parâmetros que estão na URL
 var parametros = parametrosPegar(window.location.href);
-
-$( document ).ready(function () {
-    //Referência para o dia de hoje
-    self.hoje = new Date();
-    //colocamos o horário do dia de hoje como meia noite para futuras comparações
-    self.hoje.setHours(00, 00, 00, 00);
-
-    //verificamos se o local storage já existe ou está vazio
-    if (localStorage.getItem("itens") === null || localStorage.getItem("itens") === "") {
-        localStorage.itens = [];
-        alert("Ocorreu um problema, redirecionando...");
-        window.location.replace("listagem.html");
-    }
-
-    //Referência para o input que contém o nome do item
-    self.nomeDoItem = document.getElementsByName("nomeDoItem")[0];
-    //Referência para o input que contém o unidade de medida
-    self.unidadeMedida = document.getElementsByName("unidadeMedida")[0];
-    //Referência para o input que contém o quantidade
-    self.quantidade = document.getElementsByName("quantidade")[0];
-    //Referência para o input que contém a unidade de abreviatura
-    self.unidadeAbreviatura = document.getElementsByName("unidadeAbreviatura")[0];
-    //Referência para o input que contém o preço
-    self.preco = document.getElementsByName("preco")[0];
-    //Referência para o input que contém se é perecível
-    self.perecivel = document.getElementsByName("perecivel")[0];
-    //Referência para o input que contém a validade
-    self.validade = document.getElementsByName("validade")[0];
-    //Referência para o input que contém a fabricação
-    self.fabricacao = document.getElementsByName("fabricacao")[0];
-
-    //Caso a lista de itens não esteja vazia, carregamos as informações do item
-    if (localStorage.itens != "") {
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-            for (var _iterator = JSON.parse(localStorage.itens)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var item = _step.value;
-
-                //Verificamos se os parametros coincidem com um item da lista
-                if (item.fabricacao == parametros.fabricacao && item.nomeDoItem == decodeURI(parametros.nomeDoItem) && item.ativo === true) {
-                    self.nomeDoItem.value = item.nomeDoItem;
-                    self.unidadeMedida.value = item.unidadeMedida;
-                    self.quantidade.value = item.quantidade;
-                    self.unidadeAbreviatura.value = item.unidadeAbreviatura;
-                    self.preco.value = item.preco;
-                    self.perecivel.checked = item.perecivel;
-                    self.validade.value = item.validade;
-                    self.fabricacao.value = item.fabricacao;
-                }
-            }
-        } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                    _iterator.return();
-                }
-            } finally {
-                if (_didIteratorError) {
-                    throw _iteratorError;
-                }
-            }
-        }
-    }
-});
 
 //função responsável pela edição de um item
 serializar = function serializar() {
@@ -105,40 +35,18 @@ serializar = function serializar() {
     var itens = JSON.parse(localStorage.itens);
 
     //encontrar o item que será editado e alterar os valores
-    var _iteratorNormalCompletion2 = true;
-    var _didIteratorError2 = false;
-    var _iteratorError2 = undefined;
-
-    try {
-        for (var _iterator2 = itens[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var item = _step2.value;
-
-            if (item.fabricacao == parametros.fabricacao && item.nomeDoItem == decodeURI(parametros.nomeDoItem) && item.ativo === true) {
-                item.nomeDoItem = self.nomeDoItem.value;
-                item.unidadeMedida = self.unidadeMedida.value;
-                item.quantidade = self.quantidade.value;
-                item.unidadeAbreviatura = self.unidadeAbreviatura.value;
-                item.preco = self.preco.value;
-                item.perecivel = self.perecivel.checked;
-                item.validade = self.validade.value;
-                item.fabricacao = self.fabricacao.value;
-                item.ativo = true;
-            }
-        }
-
-        //Salvar a nova lista de itens
-    } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-    } finally {
-        try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
-            }
-        } finally {
-            if (_didIteratorError2) {
-                throw _iteratorError2;
-            }
+    for(var indice = 0; indice < itens.length;indice++){
+        var item = itens[indice];
+        if (item.fabricacao == parametros.fabricacao && item.nomeDoItem == decodeURI(parametros.nomeDoItem) && item.ativo === true) {
+            item.nomeDoItem = self.nomeDoItem.value;
+            item.unidadeMedida = self.unidadeMedida.value;
+            item.quantidade = self.quantidade.value;
+            item.unidadeAbreviatura = self.unidadeAbreviatura.value;
+            item.preco = self.preco.value;
+            item.perecivel = self.perecivel.checked;
+            item.validade = self.validade.value;
+            item.fabricacao = self.fabricacao.value;
+            item.ativo = true;
         }
     }
 
@@ -149,12 +57,15 @@ serializar = function serializar() {
 
 //Limita a data de fabricação caso seja um produto perecível
 limitarDataFabricacao = function limitarDataFabricacao() {
-    if (self.validade.hasAttribute("required")) self.fabricacao.setAttribute("max", self.validade.value);
+    if (self.validade.hasAttribute("required") && self.validade.value !== "") {
+        $('input[name=fabricacao]').data("DateTimePicker").destroy();
+        datePickerCriar('input[name=fabricacao]', 'DD/MM/YYYY', '01/01/1753', inputDataFormatada(self.validade.value));
+    }
 };
 
 //comparar se uma data é inferior a outra
 dataInferior = function dataInferior() {
-    return self.validade.value.substring(0, 4) > 1753 ? new Date(self.validade.value + "T00:00:00") < self.hoje : false;
+    return inputDataFormatada(self.validade.value) < self.hoje;
 };
 
 //alertar o usuario sobre a validade do produto
@@ -166,8 +77,12 @@ produtoVencido = function produtoVencido() {
 validadeObrigatoria = function validadeObrigatoria(perecivel) {
     if (perecivel) {
         self.validade.setAttribute("required", "");
-        limitarDataFabricacao(self.validade.value);
-    } else self.validade.removeAttribute("required");
+        limitarDataFabricacao();
+    } else {
+        $('input[name=fabricacao]').data("DateTimePicker").destroy();
+        datePickerCriar('input[name=fabricacao]', 'DD/MM/YYYY', '01/01/1753', self.dataMax);
+        self.validade.removeAttribute("required");
+    }
 };
 
 //mascaramos o input de dinheiro
@@ -254,4 +169,74 @@ function parametrosPegar(url) {
     }
 
     return obj;
+}
+
+//Função que formata uma data brasileira, para US
+inputDataFormatada = function inputDataFormatada(data) {
+    return data.split(/\//).reverse().join('-') + "T00:00:00";
+};
+
+//função que cria um datePicker
+datePickerCriar = function datePickerCriar(elementoNome, formato, dataMin, dataMax) {
+    $(elementoNome).datetimepicker({
+        format: formato,
+        minDate: dataMin,
+        maxDate: dataMax
+    });
+};
+
+//Referência para o dia de hoje
+self.hoje = new Date();
+//colocamos o horário do dia de hoje como meia noite para futuras comparações
+self.hoje.setHours(00, 00, 00, 00);
+
+//verificamos se o local storage já existe ou está vazio
+if (localStorage.getItem("itens") === null || localStorage.getItem("itens") === "") {
+    localStorage.itens = [];
+    alert("Ocorreu um problema, redirecionando...");
+    window.location.replace("listagem.html");
+}
+
+//Referência para o input que contém o nome do item
+self.nomeDoItem = document.getElementsByName("nomeDoItem")[0];
+//Referência para o input que contém o unidade de medida
+self.unidadeMedida = document.getElementsByName("unidadeMedida")[0];
+//Referência para o input que contém o quantidade
+self.quantidade = document.getElementsByName("quantidade")[0];
+//Referência para o input que contém a unidade de abreviatura
+self.unidadeAbreviatura = document.getElementsByName("unidadeAbreviatura")[0];
+//Referência para o input que contém o preço
+self.preco = document.getElementsByName("preco")[0];
+//Referência para o input que contém se é perecível
+self.perecivel = document.getElementsByName("perecivel")[0];
+//Referência para o input que contém a validade
+self.validade = document.getElementsByName("validade")[0];
+//Referência para o input que contém a fabricação
+self.fabricacao = document.getElementsByName("fabricacao")[0];
+
+datePickerCriar('input[name=validade]', 'DD/MM/YYYY', self.dataMin, self.dataMax);
+datePickerCriar('input[name=fabricacao]', 'DD/MM/YYYY', self.dataMin, self.dataMax);
+
+//Caso a lista de itens não esteja vazia, carregamos as informações do item
+if (localStorage.itens != "") {
+    var itens = JSON.parse(localStorage.itens);
+    for(var indice = 0; indice < itens.length;indice++){
+        var item = itens[indice];
+        if (item.fabricacao == parametros.fabricacao && item.nomeDoItem == decodeURI(parametros.nomeDoItem) && item.ativo === true) {
+            self.nomeDoItem.value = item.nomeDoItem;
+            self.unidadeMedida.value = item.unidadeMedida;
+            self.quantidade.value = item.quantidade;
+            self.unidadeAbreviatura.value = item.unidadeAbreviatura;
+            self.preco.value = item.preco;
+            self.perecivel.checked = item.perecivel;
+
+            // Configuramos o limite das datas se for um produto perecivel
+            $('input[name=validade]').data("DateTimePicker").date(item.validade);
+            $('input[name=fabricacao]').data("DateTimePicker").date(item.fabricacao);
+
+            if(item.perecivel){
+                validadeObrigatoria(item.perecivel);
+            }
+        }
+    }
 }

@@ -60,13 +60,13 @@
                 <table class="table table-striped" style="table-layout: fixed">
                     <thead>
                         <tr>
-                            <th width="14%">Nome</th>
+                            <th width="15%">Nome</th>
                             <th width="13%">Unid. Medida</th>
                             <th width="11%">Quantidade</th>
-                            <th width="10%">Preço</th>
-                            <th width="8%" >Perecível</th>
-                            <th width="15%" >Validade</th>
-                            <th width="15%" >Fabricação</th>
+                            <th width="11%">Preço</th>
+                            <th width="8%">Perecível</th>
+                            <th width="14%">Validade</th>
+                            <th width="14%">Fabricação</th>
                             <th width="13%">Ações</th>
                         </tr>
                     </thead>
@@ -91,11 +91,11 @@
         var head = document.getElementsByTagName('head')[0];
         var listagemConfig = document.createElement("script");
 
-        if (navigator.userAgent.match('MSIE')) {
-            listagemConfig.src ="js/IE/listagemConfig.js";
+        if (navigator.userAgent.match('Trident')) {
+            listagemConfig.src = "js/IE/listagemConfig.js";
 
         } else {
-            listagemConfig.src ="js/listagemConfig.js";
+            listagemConfig.src = "js/listagemConfig.js";
         }
         window.onload = function () {
             head.appendChild(listagemConfig);

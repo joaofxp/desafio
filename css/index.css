@@ -25,24 +25,55 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 
 html {
-    /* Definimos o tamanho padrão da fonte para 62.5, tornando 1 REM = 10px */
-    font-size: 62.5%;
-    /* Ajustamos a altura da linha para 1.4, para facilitar a leitura */
+    /* Definir o tamanho padrão da fonte para 62.5, tornando 1 REM = 10px */
+    font-size: 62.5% !important;
+    /* Ajustar a altura da linha para 1.4*/
     line-height: 1.4;
 }
 
 body {
-    /* Definimos que o tamanaho da fonte do corpo é de 16px */
+    /* Definir que o tamanaho da fonte do corpo é de 16px */
     font-size: 1.6rem;
 }
 
 input[type=date]::-webkit-inner-spin-button,
 input[type=date]::-webkit-outer-spin-button {
-    /* removemos as setas do input tipo DATE, economizando espaço */
+    /* remover as setas do input tipo DATE, economizando espaço */
   -webkit-appearance: none;
 }
 
 td,input,select {
-    /* definimos que todos TD, input e select possuam apenas 5px de padding */
+    /* definir que todos TD, input e select possuam apenas 5px de padding */
     padding:5px !important;
+}
+
+table {
+    /* definir que as tabelas não terão nenhum tipo de margin */
+    margin:0px !important;
+}
+
+td .btn {
+    /* definir que a altura dos botões é de 26px como padrão */
+    height: 2.6rem !important;
+    /* definir que a altura da linha é de 10px como padrão */
+    line-height:1rem;
+    /* remover o padding que vem como padrão do webkit */
+    -webkit-padding-start: 0px;
+}
+
+td .btn-default {
+    /* definir que botões do tipo defautl dentro da tabela são expandidos  */
+    width:100%;
+    /* definir o texto alinhado à esquerda */
+    text-align:left;
+    /* definir que o cursor não mudará ao passar */
+    cursor: inherit !important;
+}
+
+/* transformar um select disabled como um readonly */
+select[disabled] {
+    /* definir que o select desativado ficará com o fundo branco */
+    background-color:white !important;
+    /* definir que não há opacidade */
+    opacity:1 !important;
 }
