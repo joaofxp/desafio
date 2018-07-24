@@ -30,7 +30,7 @@ var self = this;
 //Referência para os parâmetros que estão na URL
 var parametros = parametrosPegar(window.location.href);
 
-window.onload = function () {
+$( document ).ready(function () {
     //Referência para o dia de hoje
     self.hoje = new Date();
     //colocamos o horário do dia de hoje como meia noite para futuras comparações
@@ -97,7 +97,7 @@ window.onload = function () {
             }
         }
     }
-};
+});
 
 //função responsável pela edição de um item
 serializar = function serializar() {
@@ -159,7 +159,7 @@ dataInferior = function dataInferior() {
 
 //alertar o usuario sobre a validade do produto
 produtoVencido = function produtoVencido() {
-    return console.log("O produto encontra-se vencido.");
+    return alert("O produto encontra-se vencido.");
 };
 
 //tornamos validade obrigatória caso seja um produto perecível

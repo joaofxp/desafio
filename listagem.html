@@ -33,29 +33,9 @@
     <meta name="description" content="Desafio Front-End, construir uma aplicação web para realizar o cadastro de itens. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <!-- checar o browser e adicionar o arquivo certo -->
-    <script>
-        var head = document.getElementsByTagName('head')[0];
-        var listagemConfig = document.createElement("script");
-        
-        if (navigator.userAgent.match('MSIE')) {
-            listagemConfig.src ="js/IE/listagemConfig.js";
-            
-        } else {
-            listagemConfig.src ="js/listagemConfig.js";
-        }
-
-        head.appendChild(listagemConfig);
-    </script>
-    
-    <!-- jQuery -->
-    <script src="js/jquery.min.js"></script>
-
     <!-- Última compilação e minificada do CSS do bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <!-- Última compilação e minificada do javascript do bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
 
     <!-- styles -->
     <link rel="stylesheet" href="css/index.css">
@@ -68,7 +48,7 @@
             <div class="col-md-2 menu">
                 <h3>Menu</h3>
                 <hr>
-                <div class="btn-group-vertical"> 
+                <div class="btn-group-vertical">
                     <a href="cadastro.html" class="btn btn-default" role="button">Cadastro</a>
                     <a href="listagem.html" class="btn btn-default" role="button">Listagem</a>
                 </div>
@@ -80,14 +60,14 @@
                 <table class="table table-striped" style="table-layout: fixed">
                     <thead>
                         <tr>
-                            <th width="12%">Nome</th>
+                            <th width="14%">Nome</th>
                             <th width="13%">Unid. Medida</th>
                             <th width="11%">Quantidade</th>
                             <th width="10%">Preço</th>
                             <th width="8%" >Perecível</th>
                             <th width="15%" >Validade</th>
                             <th width="15%" >Fabricação</th>
-                            <th width="15%">Ações</th>
+                            <th width="13%">Ações</th>
                         </tr>
                     </thead>
                     <tbody id="itensTabelaCorpo"></tbody>
@@ -99,7 +79,29 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+
+    <!-- Última compilação e minificada do javascript do bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- checar o browser e adicionar o arquivo certo -->
+    <script>
+        var head = document.getElementsByTagName('head')[0];
+        var listagemConfig = document.createElement("script");
+
+        if (navigator.userAgent.match('MSIE')) {
+            listagemConfig.src ="js/IE/listagemConfig.js";
+
+        } else {
+            listagemConfig.src ="js/listagemConfig.js";
+        }
+        window.onload = function () {
+            head.appendChild(listagemConfig);
+        }
+    </script>
+
 </body>
 
 </html>

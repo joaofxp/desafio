@@ -33,38 +33,20 @@
     <meta name="description" content="Desafio Front-End, construir uma aplicação web para realizar o cadastro de itens. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <!-- checar o browser e adicionar o arquivo certo -->
-    <script>
-        var head = document.getElementsByTagName('head')[0];
-        var cadastroConfig = document.createElement("script");
-        var validacaoCampoMonetario = document.createElement("script");
 
-        if (navigator.userAgent.match('MSIE')) {
-            cadastroConfig.src ="js/IE/cadastroConfig.js";
-            validacaoCampoMonetario.src = "js/IE/validacaoCampoMonetario.js";
-            
-        } else {
-            cadastroConfig.src ="js/cadastroConfig.js";
-            validacaoCampoMonetario.src = "js/validacaoCampoMonetario.js";
-        }
 
-        head.appendChild(cadastroConfig);
-        head.appendChild(validacaoCampoMonetario);
-    </script>
-
-    <!-- jQuery -->
-    <script src="js/jquery.min.js"></script>
-    <!-- <script src="js/validacaoCampoMonetario.js"></script> -->
-
+    
     <!-- Última compilação e minificada do CSS do bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!-- Última compilação e minificada do javascript do bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-
+    
+    
     <!-- styles -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/menu.css">
+    
+    <!-- datePicker -->
+    <link rel="stylesheet" type="text/css" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css">
 </head>
 
 <body>
@@ -84,12 +66,12 @@
                 <form class="form" name="cadastroFormulario" onsubmit="serializar()" action="listagem.html" method="GET">
 
                     <div class="form-group">
-                        <label class="">Nome</label>
+                        <label>Nome</label>
                         <input class="form-control"  name="nomeDoItem" type="text" pattern="[A-Za-z\s.áéíóúÁÉÍÓÚ]{1,50}" placeholder="Caneta" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="">Unidade de Medida</label>
+                        <label>Unidade de Medida</label>
                         <select class="form-control" name="unidadeMedida" onchange="quantidadeConfigurar(this.value)" required>
                             <option value="" selected disabled>Selecione</option>
                             <option value="1">Litro</option>
@@ -99,7 +81,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="">Quantidade</label>
+                        <label>Quantidade</label>
                         <div>
                             <input type="text" style="display:inline;width:90%" class="form-control" name="quantidade">
                             <input type="text" style="display:inline;width:9%;text-align:center" class="form-control" name="unidadeAbreviatura" readonly>
@@ -107,25 +89,30 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="">Preço</label>
+                        <label>Preço</label>
                         <input class="form-control"  name="preco" type="text" data-thousands="." data-decimal="," data-prefix="R$" onkeydown="mascarar()" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="">Perecível</label>
+                        <label>Perecível</label>
                         <input name="perecivel" type="checkbox" onchange="validadeObrigatoria(this.checked)">
                     </div>
 
                     <div class="form-group">
-                        <label class="">Validade</label>
-                        <input class="form-control" name="validade" type="date" onchange="limitarDataFabricacao();if(dataInferior()) produtoVencido()">
+                        <label>Validade</label>
+                        <div class='col-md-12' style="padding:0px">
+                            <input class="form-control" name="validade" type="text" onblur="limitarDataFabricacao();if(dataInferior()) produtoVencido()">
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="">Fabricação</label>
-                        <input class="form-control" name="fabricacao" type="date" required>
+                        <label>Fabricação</label>
+                        <div class='col-md-12' style="padding:0px">
+                            <input type='text' class="form-control"  name="fabricacao">
+                        </div>
                     </div>
 
+                    <br>
                     <hr>
 
                     <div>
@@ -136,6 +123,34 @@
             </div>
         </div>
     </div>
+    
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Última compilação e minificada do javascript do bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- checar o browser e adicionar o arquivo certo -->
+    <script>
+        var head = document.getElementsByTagName('head')[0];
+        var cadastroConfig = document.createElement("script");
+        var validacaoCampoMonetario = document.createElement("script");
+    
+        if (navigator.userAgent.match('MSIE')) {
+            cadastroConfig.src ="js/IE/cadastroConfig.js";
+            validacaoCampoMonetario.src = "js/IE/validacaoCampoMonetario.js";
+        } else {
+            cadastroConfig.src ="js/cadastroConfig.js";
+            validacaoCampoMonetario.src = "js/validacaoCampoMonetario.js";
+        }
+    
+        window.onload = function () { 
+            head.appendChild(cadastroConfig);
+            head.appendChild(validacaoCampoMonetario);
+        }
+    </script>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 </body>
 
 </html>
